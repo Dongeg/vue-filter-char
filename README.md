@@ -34,6 +34,9 @@ Vue.directive('filterSpecialChar', {
     update: function (el, {value,modifiers},vnode) {
         try {
             let newValue = value? value.replace( /[`~!#$%^&*()_\-+=<>?:"{}|,;'\\[\]·~！#￥%……&*（）——\-+={}|《》？：“”【】、；‘’，。、]/g, ""):'';
+            if((value !== newValue) && (value != '')){
+                util.warningMsg('不能输入特殊字符')
+            }
             if(value !== newValue){
                 // 原生input
                 if(el.value){
