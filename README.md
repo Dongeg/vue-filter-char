@@ -35,8 +35,16 @@ Vue.directive('filterSpecialChar', {
         try {
             let newValue = value? value.replace( /[`~!#$%^&*()_\-+=<>?:"{}|,;'\\[\]·~！#￥%……&*（）——\-+={}|《》？：“”【】、；‘’，。、]/g, ""):'';
             if(value !== newValue){
-                el.value = newValue
-                el.dispatchEvent(new Event(modifiers.lazy ? 'change' : 'input'))
+                // 原生input
+                if(el.value){
+                    el.value = newValue
+                    el.dispatchEvent(new Event(modifiers.lazy ? 'change' : 'input'))
+                }
+                // element ui input
+                else {
+                    el.children[0].value = newValue
+                    el.children[0].dispatchEvent(new Event(modifiers.lazy ? 'change' : 'input'))
+                }
             }
 
         } catch (e) {
